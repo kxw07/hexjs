@@ -1,0 +1,13 @@
+.card-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+}
+
+.card .img {
+    width: 400px;
+}

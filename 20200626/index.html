@@ -4,24 +4,41 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./mystyle.css">
 </head>
 <body>
-<div id="products"></div>
+<div class="container">
+  <h2>產品列表</h2>
+  <div id="app" class="card-columns">
+  </div>
+</div>
 <script>
     const obj = {
-        uuid: 'de4aaa47-9e6a-44fb-be33-178ff34efbdc',
-        getData: function () {
-            axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/products`)
+        data: {
+            uuid: 'de4aaa47-9e6a-44fb-be33-178ff34efbdc',
+            products: []
+        },
+        getProducts() {
+            const vm = this;
+            axios.get(`https://course-ec-api.hexschool.io/api/${vm.data.uuid}/ec/products`)
                 .then(function (res) {
-                    console.log(res);
+                    vm.data.products.push(...res.data.data);
+                    console.log(vm.data.products);
+                    vm.renderView();
                 })
                 .catch(function (err) {
                     console.log('API get data failed.', err);
                 });
+        },
+        renderView() {
+            const vm = this;
+            vm.data.products.forEach((item, index) => {
+                document.querySelector('#app').innerHTML += `<div class="card"><img src="${item.imageUrl}" class="img"></div>`;
+            })
         }
     }
 
-    obj.getData();
+    obj.getProducts();
 </script>
 </body>
 </html>
