@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="products"></div>
+<script>
+    const obj = {
+        uuid: 'de4aaa47-9e6a-44fb-be33-178ff34efbdc',
+        getData: function () {
+            axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/products`)
+                .then(function (res) {
+                    console.log(res);
+                })
+                .catch(function (err) {
+                    console.log('API get data failed.', err);
+                });
+        }
+    }
+
+    obj.getData();
+</script>
+</body>
+</html>
