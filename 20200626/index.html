@@ -33,7 +33,7 @@
         renderView() {
             const vm = this;
             vm.data.products.forEach((item, index) => {
-                document.querySelector('#app').innerHTML += `<div class="card"><img src="${item.imageUrl}" class="img"></div>`;
+                document.querySelector('#app').innerHTML += `<div class="card"><img src="${item.imageUrl}" class="item-img"><div class="item-des"><h2>${item.title}</h2><span>${item.content}</span></div></div>`;
             })
         }
     }
