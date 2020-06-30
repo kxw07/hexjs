@@ -19,6 +19,7 @@
 }
 
 .card .item-img {
+    display: block;
     border-top-left-radius: calc(.25rem - 2px);
     border-top-right-radius: calc(.25rem - 2px);
     width: 20vw;
