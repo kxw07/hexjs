@@ -9,8 +9,8 @@
 <body>
 <div class="container">
   <h2>產品列表</h2>
-  <div id="app" class="card-columns">
-  </div>
+  <ul id="app" class="card-columns">
+  </ul>
 </div>
 <script>
     const obj = {
@@ -33,7 +33,14 @@
         renderView() {
             const vm = this;
             vm.data.products.forEach((item, index) => {
-                document.querySelector('#app').innerHTML += `<div class="card"><img src="${item.imageUrl}" class="item-img"><div class="item-des"><h2>${item.title}</h2><span>${item.content}</span></div></div>`;
+                document.querySelector('#app').innerHTML +=
+                    `<li class="card">
+                      <img src="${item.imageUrl}" class="item-img">
+                      <div class="item-des">
+                        <h3>${item.title}</h3>
+                        <p>${item.content}</p>
+                      </div>
+                     </li>`;
             })
         }
     }
