@@ -41,19 +41,20 @@ new Vue({
                 price: 25,
                 unit: '顆'
             }
-        ]
+        ],
+        tempProduct: {}
     },
     methods: {
-        editItem(item, index) {
-            this.openModal(false, item);
+        editProduct(product, index) {
+            this.openModal(false, product);
         },
-        deleteItem(item, index) {
+        deleteProduct(product, index) {
             $('#confirmModal').modal('show');
         },
-        createItem() {
+        createProduct() {
             this.openModal(true);
         },
-        openModal(isNew, item) {
+        openModal(isNew, product) {
             $('#productModal').modal('show');
         }
     }
