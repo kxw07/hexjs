@@ -42,5 +42,16 @@ new Vue({
                 unit: '顆'
             }
         ]
+    },
+    methods: {
+        editItem(item, index) {
+            console.log('editItem', item);
+        },
+        deleteItem(item, index) {
+            console.log('deleteItem', item);
+            if (confirm(`即將刪除項目:${item.title}`)) {
+                this.products.splice(index, 1);
+            }
+        }
     }
 })
