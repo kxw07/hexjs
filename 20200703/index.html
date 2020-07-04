@@ -21,54 +21,54 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="imageUrl">圖片網址</label>
-                <input id="imageUrl" type="text" placeholder="請輸入圖片連結" class="form-control" v-model="tempProduct.imageUrl"/>
+                <input id="imageUrl" type="text" placeholder="請輸入圖片連結" class="form-control" v-model="editingProduct.imageUrl"/>
               </div>
-              <img :src="tempProduct.imageUrl" class="img-fluid"/>
+              <img :src="editingProduct.imageUrl" class="img-fluid"/>
             </div>
             <div class="col-sm-8">
               <div class="form-group">
                 <label for="productTitle">產品名稱</label>
                 <input id="productTitle" type="text" placeholder="請輸入產品名稱" class="form-control"
-                       v-model="tempProduct.title"/>
+                       v-model="editingProduct.title"/>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="productCategory">分類</label>
                   <input id="productCategory" type="text" placeholder="請輸入分類" class="form-control"
-                         v-model="tempProduct.category"/>
+                         v-model="editingProduct.category"/>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="productUnit">單位</label>
                   <input id="productUnit" type="text" placeholder="請輸入單位" class="form-control"
-                         v-model="tempProduct.unit"/>
+                         v-model="editingProduct.unit"/>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="productOriginPrice">原價</label>
                   <input id="productOriginPrice" type="number" placeholder="請輸入原價" class="form-control"
-                         v-model="tempProduct.origin_price"/>
+                         v-model="editingProduct.origin_price"/>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="productPrice">售價</label>
                   <input id="productPrice" type="number" placeholder="請輸入售價" class="form-control"
-                         v-model="tempProduct.price"/>
+                         v-model="editingProduct.price"/>
                 </div>
               </div>
               <hr>
               <div class="form-group">
                 <label for="productDescription">產品描述</label>
                 <input id="productDescription" type="text" placeholder="請輸入產品描述" class="form-control"
-                       v-model="tempProduct.description"/>
+                       v-model="editingProduct.description"/>
               </div>
               <div class="form-group">
                 <label for="productContent">產品說明</label>
                 <input id="productContent" type="text" placeholder="請輸入產品說明" class="form-control"
-                       v-model="tempProduct.content"/>
+                       v-model="editingProduct.content"/>
               </div>
               <div class="form-check">
                 <input id="is_enabled" type="checkbox" class="form-check-input"
-                       v-model="tempProduct.enabled"/>
+                       v-model="editingProduct.enabled"/>
                 <label for="is_enabled" class="form-check-label">是否啟用</label>
               </div>
             </div>
@@ -93,7 +93,7 @@
           </button>
         </div>
         <div class="modal-body">
-          是否刪除 <strong class="text-danger">{{tempProduct.title}}</strong> 商品(刪除後將無法恢復)！
+          是否刪除 <strong class="text-danger">{{editingProduct.title}}</strong> 商品(刪除後將無法恢復)！
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
