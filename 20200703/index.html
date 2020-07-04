@@ -19,13 +19,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>我是分類</td>
-      <td>我是產品名稱</td>
-      <td>我是原價</td>
-      <td>我是售價</td>
-      <td>我是是否啟用</td>
-      <td>我是編輯</td>
+    <tr v-for="item in products" :key="item.id">
+      <td>{{item.category}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.origin_price}}</td>
+      <td>{{item.price}}</td>
+      <td>{{item.enabled?"啟用":"未啟用"}}</td>
+      <td>
+        <button type="button">編輯</button>
+        <button type="button">刪除</button>
+      </td>
     </tr>
     </tbody>
   </table>
