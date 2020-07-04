@@ -50,7 +50,7 @@
 
   <div>
     <div class="text-right mt-4">
-      <button type="button" v-on:click="createProduct()" class="btn btn-primary">建立新產品</button>
+      <button type="button" v-on:click="openModal('createProduct')" class="btn btn-primary">建立新產品</button>
     </div>
     <table class="table mt-4">
       <thead>
@@ -72,8 +72,8 @@
         <td>{{product.enabled?"啟用":"未啟用"}}</td>
         <td>
           <div class="btn-group">
-            <button type="button" v-on:click="editProduct(product, index)" class="btn btn-outline-primary btn-sm">編輯</button>
-            <button type="button" v-on:click="deleteProduct(product, index)" class="btn btn-outline-danger btn-sm">刪除</button>
+            <button type="button" v-on:click="openModal('editProduct', product)" class="btn btn-outline-primary btn-sm">編輯</button>
+            <button type="button" v-on:click="openModal('deleteProduct', product)" class="btn btn-outline-danger btn-sm">刪除</button>
           </div>
         </td>
       </tr>

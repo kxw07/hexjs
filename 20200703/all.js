@@ -46,16 +46,26 @@ new Vue({
     },
     methods: {
         editProduct(product, index) {
-            this.openModal(false, product);
         },
         deleteProduct(product, index) {
-            $('#confirmModal').modal('show');
+            this.tempProduct = Object.assign({}, product);
         },
         createProduct() {
-            this.openModal(true);
         },
-        openModal(isNew, product) {
-            $('#productModal').modal('show');
+        openModal(mode, product) {
+            switch (mode) {
+                case 'createProduct':
+                    $('#productModal').modal('show');
+                    break;
+                case 'editProduct':
+                    $('#productModal').modal('show');
+                    break;
+                case 'deleteProduct':
+                    $('#confirmModal').modal('show');
+                    break;
+                default:
+                    break;
+            }
         }
     }
 })
