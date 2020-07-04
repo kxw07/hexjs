@@ -46,14 +46,18 @@ new Vue({
         productModalIsCreating: true
     },
     methods: {
-        editProduct() {
+        saveProduct() {
+            if (this.productModalIsCreating) {
+                this.products.push(this.tempProduct);
+            } else {
+                this.$set(this.products, this.tempProduct.index ,Object.assign({}, this.tempProduct));
+            }
+            $('#productModal').modal('hide');
         },
         deleteProduct() {
             this.products.splice(this.tempProduct.index, 1);
             this.tempProduct = {};
             $('#confirmModal').modal('hide');
-        },
-        createProduct() {
         },
         openModal(mode, product, index) {
             switch (mode) {
@@ -69,9 +73,9 @@ new Vue({
                     $('#productModal').modal('show');
                     break;
                 case 'deleteProduct':
-                    $('#confirmModal').modal('show');
                     this.tempProduct = Object.assign({}, product);
                     this.tempProduct.index = index;
+                    $('#confirmModal').modal('show');
                     break;
                 default:
                     break;
