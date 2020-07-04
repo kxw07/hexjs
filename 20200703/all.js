@@ -42,10 +42,11 @@ new Vue({
                 unit: '顆'
             }
         ],
-        tempProduct: {}
+        tempProduct: {},
+        productModalIsCreating: true
     },
     methods: {
-        editProduct(product, index) {
+        editProduct() {
         },
         deleteProduct() {
             this.products.splice(this.tempProduct.index, 1);
@@ -57,9 +58,13 @@ new Vue({
         openModal(mode, product, index) {
             switch (mode) {
                 case 'createProduct':
+                    this.productModalIsCreating = true;
                     $('#productModal').modal('show');
                     break;
                 case 'editProduct':
+                    this.productModalIsCreating = false;
+                    this.tempProduct = Object.assign({}, product);
+                    this.tempProduct.index = index;
                     $('#productModal').modal('show');
                     break;
                 case 'deleteProduct':
