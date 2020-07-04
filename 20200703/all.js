@@ -45,13 +45,16 @@ new Vue({
     },
     methods: {
         editItem(item, index) {
-            console.log('editItem', item);
+            this.openModal(false, item);
         },
         deleteItem(item, index) {
-            console.log('deleteItem', item);
-            if (confirm(`即將刪除項目:${item.title}`)) {
-                this.products.splice(index, 1);
-            }
+            $('#confirmModal').modal('show');
+        },
+        createItem() {
+            this.openModal(true);
+        },
+        openModal(isNew, item) {
+            $('#productModal').modal('show');
         }
     }
 })
