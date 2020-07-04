@@ -38,11 +38,11 @@
           </button>
         </div>
         <div class="modal-body">
-          是否刪除 Switch 商品(刪除後將無法恢復)！
+          是否刪除 <strong class="text-danger">{{tempProduct.title}}</strong> 商品(刪除後將無法恢復)！
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary bg-danger text-white">確認刪除</button>
+          <button type="button" class="btn btn-primary bg-danger text-white" v-on:click="deleteProduct()">確認刪除</button>
         </div>
       </div>
     </div>
@@ -72,8 +72,8 @@
         <td>{{product.enabled?"啟用":"未啟用"}}</td>
         <td>
           <div class="btn-group">
-            <button type="button" v-on:click="openModal('editProduct', product)" class="btn btn-outline-primary btn-sm">編輯</button>
-            <button type="button" v-on:click="openModal('deleteProduct', product)" class="btn btn-outline-danger btn-sm">刪除</button>
+            <button type="button" v-on:click="openModal('editProduct', product, index)" class="btn btn-outline-primary btn-sm">編輯</button>
+            <button type="button" v-on:click="openModal('deleteProduct', product, index)" class="btn btn-outline-danger btn-sm">刪除</button>
           </div>
         </td>
       </tr>

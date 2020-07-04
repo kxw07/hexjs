@@ -47,12 +47,14 @@ new Vue({
     methods: {
         editProduct(product, index) {
         },
-        deleteProduct(product, index) {
-            this.tempProduct = Object.assign({}, product);
+        deleteProduct() {
+            this.products.splice(this.tempProduct.index, 1);
+            this.tempProduct = {};
+            $('#confirmModal').modal('hide');
         },
         createProduct() {
         },
-        openModal(mode, product) {
+        openModal(mode, product, index) {
             switch (mode) {
                 case 'createProduct':
                     $('#productModal').modal('show');
@@ -62,6 +64,8 @@ new Vue({
                     break;
                 case 'deleteProduct':
                     $('#confirmModal').modal('show');
+                    this.tempProduct = Object.assign({}, product);
+                    this.tempProduct.index = index;
                     break;
                 default:
                     break;
