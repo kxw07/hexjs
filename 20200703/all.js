@@ -59,6 +59,7 @@ new Vue({
             switch (mode) {
                 case 'createProduct':
                     this.productModalIsCreating = true;
+                    this.tempProduct = {};
                     $('#productModal').modal('show');
                     break;
                 case 'editProduct':
