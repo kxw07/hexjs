@@ -6,9 +6,24 @@ new Vue({
     data: {
         products: [],
         editingProduct: {},
-        productModalIsCreating: true
+        productModalIsCreating: true,
+        user: {
+            token: '',
+            uuid: ''
+        }
     },
     created() {
+        let cookies = document.cookie.split(';');
+        cookies.forEach(keyValue => {
+            let key = keyValue.trim().split('=')[0];
+            let value = keyValue.trim().split('=')[1];
+            this.user[key] = value;
+        })
+
+        if (this.user.token === '') {
+            window.location = 'login.html';
+        }
+
         this.getProducts();
     },
     methods: {
