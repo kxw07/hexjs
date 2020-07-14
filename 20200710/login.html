@@ -15,13 +15,16 @@
 
       <div class="form-group">
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" v-model="user.email" placeholder="Email Address" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" v-model="user.email" placeholder="Email Address"
+               required autofocus>
       </div>
 
       <div class="form-group">
         <label for="inputPwd" class="sr-only">Password</label>
-        <input type="password" id="inputPwd" class="form-control" v-model="user.password" placeholder="Password" required>
+        <input type="password" id="inputPwd" class="form-control" v-model="user.password" placeholder="Password"
+               required>
       </div>
+      <span class="text-danger">{{msg}}</span>
 
       <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
     </form>
@@ -36,7 +39,8 @@
             user: {
                 email: '',
                 password: ''
-            }
+            },
+            msg: ''
         },
         methods: {
             login() {
@@ -45,24 +49,18 @@
                     "Accept": "application/json"
                 };
 
-                let body = {
-                    "email": this.user.email.trim(),
-                    "password": this.user.password.trim()
-                }
-
                 axios({
                         url: "https://course-ec-api.hexschool.io/api/auth/login",
                         method: "post",
                         headers: headers,
-                        data: body
+                        data: this.user
                     }
                 ).then(res => {
-                    console.log(res);
-                    res.data.token
-                    res.data.uuid
-
+                    document.cookie = `token=${res.data.token}; max-age=1800; path=/`;
+                    document.cookie = `uuid=${res.data.uuid}; max-age=1800; path=/`;
                     window.location = "./products.html";
                 }).catch(err => {
+                    this.msg = err.response.data.message;
                     console.log(err);
                 });
             }
