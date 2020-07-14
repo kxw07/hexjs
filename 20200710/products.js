@@ -34,7 +34,7 @@ new Vue({
             };
 
             axios({
-                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/ec/products`,
+                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/products`,
                     method: "get",
                     headers: headers
                 }
@@ -45,11 +45,11 @@ new Vue({
             });
         },
         saveProduct() {
-            // if (this.productModalIsCreating) {
-            //     this.products.push(this.editingProduct);
-            // } else {
-            //     this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
-            // }
+            if (this.productModalIsCreating) {
+                this.products.push(this.editingProduct);
+            } else {
+                this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
+            }
 
             let headers = {
                 "Content-Type": "application/json",
