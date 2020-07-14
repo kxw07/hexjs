@@ -19,7 +19,7 @@ new Vue({
             };
 
             axios({
-                    url: `https://course-ec-api.hexschool.io/api/de4aaa47-9e6a-44fb-be33-178ff34efbdc/ec/products`,
+                    url: `https://course-ec-api.hexschool.io/api/${document.cookie.uuid}/ec/products`,
                     method: "get",
                     headers: headers
                 }
@@ -30,11 +30,31 @@ new Vue({
             });
         },
         saveProduct() {
-            if (this.productModalIsCreating) {
-                this.products.push(this.editingProduct);
-            } else {
-                this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
-            }
+            // if (this.productModalIsCreating) {
+            //     this.products.push(this.editingProduct);
+            // } else {
+            //     this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
+            // }
+
+            let headers = {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${document.cookie.token}`
+            };
+
+            axios({
+                    url: `https://course-ec-api.hexschool.io/api/${document.cookie.uuid}/admin/ec/product/${this.editingProduct.id}`,
+                    method: "patch",
+                    headers: headers,
+                    data: this.editingProduct
+                }
+            ).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+
+            this.getProducts();
             $('#productModal').modal('hide');
         },
         deleteProduct() {
