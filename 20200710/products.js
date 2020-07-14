@@ -48,27 +48,45 @@ new Vue({
         saveProduct() {
             if (this.productModalIsCreating) {
                 this.products.push(this.editingProduct);
+
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${this.user.token}`
+                };
+
+                axios({
+                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`,
+                        method: "post",
+                        headers: headers,
+                        data: this.editingProduct
+                    }
+                ).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
             } else {
                 this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
+
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${this.user.token}`
+                };
+
+                axios({
+                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
+                        method: "patch",
+                        headers: headers,
+                        data: this.editingProduct
+                    }
+                ).then(res => {
+                    console.log(res);
+                }).catch(err => {
+                    console.log(err);
+                });
             }
-
-            let headers = {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": `Bearer ${this.user.token}`
-            };
-
-            axios({
-                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
-                    method: "patch",
-                    headers: headers,
-                    data: this.editingProduct
-                }
-            ).then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            });
 
             $('#productModal').modal('hide');
         },
