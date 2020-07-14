@@ -55,6 +55,10 @@ new Vue({
                     "Authorization": `Bearer ${this.user.token}`
                 };
 
+                if (this.editingProduct['imageUrl']) {
+                    this.editingProduct.imageUrl[0] = this.editingProduct.imageUrl;
+                }
+
                 axios({
                         url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`,
                         method: "post",
