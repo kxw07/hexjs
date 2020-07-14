@@ -4,53 +4,36 @@
 new Vue({
     el: '#app',
     data: {
-        products: [
-            {
-                id: 1593844906283,
-                title: '蘋果',
-                category: '水果',
-                content: '甜甜的',
-                description: '長在樹上的蘋果',
-                imageUrl: 'https://images.unsplash.com/photo-1579613832125-5d34a13ffe2a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-                enabled: false,
-                origin_price: 100,
-                price: 90,
-                unit: '顆'
-            },
-            {
-                id: 1593844921893,
-                title: '香蕉',
-                category: '水果',
-                content: '很營養',
-                description: '長在樹上的香蕉',
-                imageUrl: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-                enabled: true,
-                origin_price: 50,
-                price: 40,
-                unit: '根'
-            },
-            {
-                id: 1593845000887,
-                title: '草莓',
-                category: '水果',
-                content: '紅紅的',
-                description: '長在矮樹叢的草莓',
-                imageUrl: 'https://images.unsplash.com/photo-1591094068013-e481f2f6b442?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-                enabled: true,
-                origin_price: 30,
-                price: 25,
-                unit: '顆'
-            }
-        ],
+        products: [],
         editingProduct: {},
         productModalIsCreating: true
     },
+    created() {
+        this.getProducts();
+    },
     methods: {
+        getProducts() {
+            let headers = {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            };
+
+            axios({
+                    url: `https://course-ec-api.hexschool.io/api/de4aaa47-9e6a-44fb-be33-178ff34efbdc/ec/products`,
+                    method: "get",
+                    headers: headers
+                }
+            ).then(res => {
+                this.products = res.data.data;
+            }).catch(err => {
+                console.log(err);
+            });
+        },
         saveProduct() {
             if (this.productModalIsCreating) {
                 this.products.push(this.editingProduct);
             } else {
-                this.$set(this.products, this.editingProduct.index ,Object.assign({}, this.editingProduct));
+                this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
             }
             $('#productModal').modal('hide');
         },
