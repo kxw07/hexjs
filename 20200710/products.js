@@ -56,7 +56,9 @@ new Vue({
                 };
 
                 if (this.editingProduct['imageUrl']) {
-                    this.editingProduct.imageUrl[0] = this.editingProduct.imageUrl;
+                    let imageUrlArray = [];
+                    imageUrlArray.push(this.editingProduct.imageUrl);
+                    this.editingProduct.imageUrl = imageUrlArray;
                 }
 
                 axios({
