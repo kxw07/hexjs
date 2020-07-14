@@ -10,7 +10,7 @@
 <body>
 <div id="app">
   <div class="container">
-    <form class="form-signin text-center">
+    <form class="form-signin text-center" v-on:submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
       <div class="form-group">
@@ -23,7 +23,7 @@
         <input type="password" id="inputPwd" class="form-control" placeholder="Password" required>
       </div>
 
-      <button type="button" class="btn btn-lg btn-primary btn-block" v-on:click="login">Sign in</button>
+      <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
     </form>
   </div>
 </div>
@@ -51,8 +51,11 @@
                         headers: headers,
                         data: body
                     }
-                ).then(res => console.log(res)
-                ).catch(err => console.log(err));
+                ).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                });
             }
         }
     })
