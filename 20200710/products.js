@@ -69,12 +69,29 @@ new Vue({
                 console.log(err);
             });
 
-            this.getProducts();
             $('#productModal').modal('hide');
         },
         deleteProduct() {
             this.products.splice(this.editingProduct.index, 1);
             this.editingProduct = {};
+
+            let headers = {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${this.user.token}`
+            };
+
+            axios({
+                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
+                    method: "delete",
+                    headers: headers
+                }
+            ).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+
             $('#confirmModal').modal('hide');
         },
         openModal(mode, product, index) {
