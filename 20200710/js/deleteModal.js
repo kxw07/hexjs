@@ -31,9 +31,6 @@ Vue.component('deleteModal', {
     },
     methods: {
         deleteProduct() {
-            this.products.splice(this.editingProduct.index, 1);
-            this.editingProduct = {};
-
             let headers = {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -46,12 +43,11 @@ Vue.component('deleteModal', {
                     headers: headers
                 }
             ).then(res => {
-                console.log(res);
+                this.$emit('update-products');
+                $('#deleteModal').modal('hide');
             }).catch(err => {
                 console.log(err);
             });
-
-            $('#deleteModal').modal('hide');
         }
     }
 })

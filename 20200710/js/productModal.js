@@ -103,7 +103,6 @@ Vue.component('productModal', {
                     data: this.editingProduct
                 }
             ).then(res => {
-                console.log(res);
                 $('#productModal').modal('hide');
                 this.$emit('update-products');
             }).catch(err => {
