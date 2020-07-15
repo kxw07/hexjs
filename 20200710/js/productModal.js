@@ -50,6 +50,11 @@ Vue.component('productModal', {
               </div>
               <hr>
               <div class="form-group">
+                <label for="productDescription">產品描述</label>
+                <input id="productDescription" type="text" placeholder="請輸入產品描述" class="form-control"
+                       v-model="editingProduct.description"/>
+              </div>
+              <div class="form-group">
                 <label for="productContent">產品說明</label>
                 <input id="productContent" type="text" placeholder="請輸入產品說明" class="form-control"
                        v-model="editingProduct.content"/>
@@ -82,43 +87,28 @@ Vue.component('productModal', {
     },
     methods: {
         saveProduct() {
-            if (this.productModalIsCreating) {
-                if (this.editingProduct['imageUrl']) {
-                    let imageUrlArray = [];
-                    imageUrlArray.push(this.editingProduct.imageUrl);
-                    this.editingProduct.imageUrl = imageUrlArray;
-                }
+            let apiUrlForCreate = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
+            let apiUrlForUpdate = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`;
 
-                axios({
-                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`,
-                        method: "post",
-                        headers: this.getHeader(),
-                        data: this.editingProduct
-                    }
-                ).then(res => {
-                    console.log(res);
-                    console.log('emit1')
-                    this.$emit('update-products');
-                    $('#productModal').modal('hide');
-                }).catch(err => {
-                    console.log(err);
-                });
-            } else {
-                axios({
-                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
-                        method: "patch",
-                        headers: this.getHeader(),
-                        data: this.editingProduct
-                    }
-                ).then(res => {
-                    console.log(res);
-                    console.log('emit2')
-                    this.$emit('update-products');
-                    $('#productModal').modal('hide');
-                }).catch(err => {
-                    console.log(err);
-                });
+            if (this.editingProduct['imageUrl']) {
+                let imageUrlArray = [];
+                imageUrlArray.push(this.editingProduct.imageUrl);
+                this.editingProduct.imageUrl = imageUrlArray;
             }
+
+            axios({
+                    url: this.productModalIsCreating ? apiUrlForCreate : apiUrlForUpdate,
+                    method: this.productModalIsCreating ? 'post' : 'patch',
+                    headers: this.getHeader(),
+                    data: this.editingProduct
+                }
+            ).then(res => {
+                console.log(res);
+                $('#productModal').modal('hide');
+                this.$emit('update-products');
+            }).catch(err => {
+                console.log(err);
+            });
         },
         getHeader() {
             return {
