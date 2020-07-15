@@ -3,6 +3,7 @@ new Vue({
     data: {
         products: [],
         editingProduct: {},
+        pagination: {},
         productModalIsCreating: true,
         user: {
             token: '',
@@ -17,7 +18,7 @@ new Vue({
             this.user[key] = value;
         })
 
-        if (this.user.token === '') {
+        if (this.user.token === '' || this.user.uuid === '') {
             window.location = 'login.html';
         }
 
@@ -38,6 +39,7 @@ new Vue({
                 }
             ).then(res => {
                 this.products = res.data.data;
+                this.pagination = res.data.meta.pagination;
             }).catch(err => {
                 console.log(err);
             });
