@@ -38,7 +38,7 @@ new Vue({
                     headers: headers
                 }
             ).then(res => {
-                this.products = res.data.data;
+                this.products = _.sortBy(res.data.data, ['category', 'title']);
                 this.pagination = res.data.meta.pagination;
             }).catch(err => {
                 console.log(err);
