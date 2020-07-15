@@ -21,7 +21,7 @@ new Vue({
         })
 
         if (this.user.token === '') {
-            window.location = 'login.html';
+            window.location = '../login.html';
         }
 
         this.getProducts();
@@ -45,80 +45,6 @@ new Vue({
                 console.log(err);
             });
         },
-        saveProduct() {
-            if (this.productModalIsCreating) {
-                this.products.push(this.editingProduct);
-
-                let headers = {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": `Bearer ${this.user.token}`
-                };
-
-                if (this.editingProduct['imageUrl']) {
-                    let imageUrlArray = [];
-                    imageUrlArray.push(this.editingProduct.imageUrl);
-                    this.editingProduct.imageUrl = imageUrlArray;
-                }
-
-                axios({
-                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`,
-                        method: "post",
-                        headers: headers,
-                        data: this.editingProduct
-                    }
-                ).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
-            } else {
-                this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
-
-                let headers = {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": `Bearer ${this.user.token}`
-                };
-
-                axios({
-                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
-                        method: "patch",
-                        headers: headers,
-                        data: this.editingProduct
-                    }
-                ).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
-            }
-
-            $('#productModal').modal('hide');
-        },
-        deleteProduct() {
-            this.products.splice(this.editingProduct.index, 1);
-            this.editingProduct = {};
-
-            let headers = {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": `Bearer ${this.user.token}`
-            };
-
-            axios({
-                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
-                    method: "delete",
-                    headers: headers
-                }
-            ).then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            });
-
-            $('#confirmModal').modal('hide');
-        },
         openModal(mode, product, index) {
             switch (mode) {
                 case 'createProduct':
@@ -136,7 +62,7 @@ new Vue({
                 case 'deleteProduct':
                     this.editingProduct = Object.assign({}, product);
                     this.editingProduct.index = index;
-                    $('#confirmModal').modal('show');
+                    $('#deleteModal').modal('show');
                     break;
                 default:
                     break;
