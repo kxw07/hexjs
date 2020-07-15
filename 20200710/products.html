@@ -6,6 +6,7 @@
   <title>Maintain</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/products.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
         </tbody>
       </table>
     </div>
-    <paging :pagination="pagination" v-on:change-page="getProducts"></paging>
+    <paging class="paging" :pagination="pagination" v-on:change-page="getProducts"></paging>
 
     <product-modal :editing-product="editingProduct" :product-modal-is-creating="productModalIsCreating" :user="user" v-on:update-products="getProducts"></product-modal>
     <delete-modal :editing-product="editingProduct" :user="user" v-on:update-products="getProducts"></delete-modal>
