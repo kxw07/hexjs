@@ -24,8 +24,7 @@ new Vue({
         this.getProducts();
     },
     methods: {
-        getProducts() {
-            console.log('getProducts')
+        getProducts(page = 1) {
             let headers = {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -33,7 +32,7 @@ new Vue({
             };
 
             axios({
-                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/products`,
+                    url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/products?page=${page}`,
                     method: "get",
                     headers: headers
                 }
@@ -43,31 +42,47 @@ new Vue({
                 console.log(err);
             });
         },
-        openModal(mode, product, index) {
+        openModal(mode, product) {
             switch (mode) {
                 case 'createProduct':
-                    console.log('createProduct');
                     this.productModalIsCreating = true;
                     this.editingProduct = {};
-                    this.editingProduct.id = new Date().getTime();
                     $('#productModal').modal('show');
                     break;
                 case 'editProduct':
-                    console.log('editProduct');
                     this.productModalIsCreating = false;
-                    this.editingProduct = Object.assign({}, product);
-                    this.editingProduct.index = index;
-                    $('#productModal').modal('show');
+                    this.getProductDetail(product.id).then(productDetail => {
+                        this.editingProduct = productDetail;
+                        $('#productModal').modal('show');
+                    });
                     break;
                 case 'deleteProduct':
-                    console.log('deleteProduct');
                     this.editingProduct = Object.assign({}, product);
-                    this.editingProduct.index = index;
                     $('#deleteModal').modal('show');
                     break;
                 default:
                     break;
             }
+        },
+        getProductDetail(productId) {
+            return new Promise((resolve, reject) => {
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${this.user.token}`
+                };
+
+                axios({
+                        url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${productId}`,
+                        method: "get",
+                        headers: headers
+                    }
+                ).then(res => {
+                    resolve(res.data.data);
+                }).catch(err => {
+                    console.log(err);
+                });
+            })
         }
     }
 })
