@@ -72,6 +72,14 @@ Vue.component('productModal', {
     data() {
         return {}
     },
+    props: {
+        editingProduct: {},
+        productModalIsCreating: true,
+        user: {
+            token: '',
+            uuid: ''
+        }
+    },
     methods: {
         saveProduct() {
             if (this.productModalIsCreating) {

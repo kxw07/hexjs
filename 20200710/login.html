@@ -5,7 +5,7 @@
   <title>Title</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="login.css">
+  <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
 <div id="app">
@@ -32,9 +32,41 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="login.js"></script>
+<script src="./js/login.js"></script>
 <script>
-    window.axios = axios;
+    new Vue({
+        el: '#app',
+        data: {
+            user: {
+                email: '',
+                password: ''
+            },
+            msg: ''
+        },
+        methods: {
+            login() {
+                let headers = {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                };
+
+                axios({
+                        url: "https://course-ec-api.hexschool.io/api/auth/login",
+                        method: "post",
+                        headers: headers,
+                        data: this.user
+                    }
+                ).then(res => {
+                    document.cookie = `token=${res.data.token}; max-age=1800; path=/`;
+                    document.cookie = `uuid=${res.data.uuid}; max-age=1800; path=/`;
+                    window.location = "../products.html";
+                }).catch(err => {
+                    this.msg = err.response.data.message;
+                    console.log(err);
+                });
+            }
+        }
+    })
 </script>
 </body>
 </html>

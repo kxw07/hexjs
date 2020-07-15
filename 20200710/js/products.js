@@ -1,6 +1,3 @@
-/* global Vue */
-/* eslint-disable no-new */
-
 new Vue({
     el: '#app',
     data: {
@@ -21,7 +18,7 @@ new Vue({
         })
 
         if (this.user.token === '') {
-            window.location = '../login.html';
+            window.location = 'login.html';
         }
 
         this.getProducts();
@@ -48,18 +45,21 @@ new Vue({
         openModal(mode, product, index) {
             switch (mode) {
                 case 'createProduct':
+                    console.log('createProduct');
                     this.productModalIsCreating = true;
                     this.editingProduct = {};
                     this.editingProduct.id = new Date().getTime();
                     $('#productModal').modal('show');
                     break;
                 case 'editProduct':
+                    console.log('editProduct');
                     this.productModalIsCreating = false;
                     this.editingProduct = Object.assign({}, product);
                     this.editingProduct.index = index;
                     $('#productModal').modal('show');
                     break;
                 case 'deleteProduct':
+                    console.log('deleteProduct');
                     this.editingProduct = Object.assign({}, product);
                     this.editingProduct.index = index;
                     $('#deleteModal').modal('show');
