@@ -26,7 +26,7 @@ new Vue({
             ).then(res => {
                 document.cookie = `token=${res.data.token}; max-age=1800; path=/`;
                 document.cookie = `uuid=${res.data.uuid}; max-age=1800; path=/`;
-                window.location = "./products.html";
+                window.location = "html/products.html";
             }).catch(err => {
                 this.msg = err.response.data.message;
                 console.log(err);
