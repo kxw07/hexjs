@@ -22,6 +22,13 @@ Vue.component('deleteModal', {
     data() {
         return {}
     },
+    props: {
+        editingProduct: {},
+        user: {
+            token: '',
+            uuid: ''
+        }
+    },
     methods: {
         deleteProduct() {
             this.products.splice(this.editingProduct.index, 1);
