@@ -51,7 +51,7 @@
         </tbody>
       </table>
     </div>
-    <paging :pagination="pagination"></paging>
+    <paging :pagination="pagination" v-on:change-page="getProducts"></paging>
 
     <product-modal :editing-product="editingProduct" :product-modal-is-creating="productModalIsCreating" :user="user" v-on:update-products="getProducts"></product-modal>
     <delete-modal :editing-product="editingProduct" :user="user" v-on:update-products="getProducts"></delete-modal>
