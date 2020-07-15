@@ -25,6 +25,7 @@ new Vue({
     },
     methods: {
         getProducts() {
+            console.log('getProducts')
             let headers = {
                 "Content-Type": "application/json",
                 "Accept": "application/json",

@@ -83,14 +83,6 @@ Vue.component('productModal', {
     methods: {
         saveProduct() {
             if (this.productModalIsCreating) {
-                this.products.push(this.editingProduct);
-
-                let headers = {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": `Bearer ${this.user.token}`
-                };
-
                 if (this.editingProduct['imageUrl']) {
                     let imageUrlArray = [];
                     imageUrlArray.push(this.editingProduct.imageUrl);
@@ -100,37 +92,40 @@ Vue.component('productModal', {
                 axios({
                         url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`,
                         method: "post",
-                        headers: headers,
+                        headers: this.getHeader(),
                         data: this.editingProduct
                     }
                 ).then(res => {
                     console.log(res);
+                    console.log('emit1')
+                    this.$emit('update-products');
+                    $('#productModal').modal('hide');
                 }).catch(err => {
                     console.log(err);
                 });
             } else {
-                this.$set(this.products, this.editingProduct.index, Object.assign({}, this.editingProduct));
-
-                let headers = {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": `Bearer ${this.user.token}`
-                };
-
                 axios({
                         url: `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.editingProduct.id}`,
                         method: "patch",
-                        headers: headers,
+                        headers: this.getHeader(),
                         data: this.editingProduct
                     }
                 ).then(res => {
                     console.log(res);
+                    console.log('emit2')
+                    this.$emit('update-products');
+                    $('#productModal').modal('hide');
                 }).catch(err => {
                     console.log(err);
                 });
             }
-
-            $('#productModal').modal('hide');
+        },
+        getHeader() {
+            return {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${this.user.token}`
+            }
         }
     }
 })
