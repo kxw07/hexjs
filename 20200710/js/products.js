@@ -25,7 +25,7 @@ new Vue({
         this.getProducts();
     },
     methods: {
-        getProducts(page = 1) {
+        getProducts(page = this.pagination.current_page || 1) {
             let headers = {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
