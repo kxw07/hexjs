@@ -33,9 +33,7 @@
           </div>
         </div>
         <div class="card-footer d-flex">
-          <button type="button" class="btn btn-outline-secondary btn-sm" :disabled="status.loadingItem === item.id"
-                  @click="getDetailed(item.id)">
-            <i v-if="status.loadingItem === item.id" class="spinner-grow spinner-grow-sm"></i>
+          <button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="getProductDetail(item.id)">
             查看更多
           </button>
           <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
@@ -49,8 +47,7 @@
   </div>
 
   <payment-info></payment-info>
-
-
+  <product-modal :product="product"></product-modal>
 </div>
 <script type="module">
     Vue.component('loading', VueLoading);
@@ -69,7 +66,8 @@
         data: {
             uuid: 'de4aaa47-9e6a-44fb-be33-178ff34efbdc',
             isLoading: true,
-            products: []
+            products: [],
+            product: {}
         },
         created() {
             axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/products`)
@@ -83,7 +81,17 @@
         mounted() {
 
         },
-        methods: {}
+        methods: {
+            getProductDetail(productId) {
+                axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/product/${productId}`)
+                    .then(res => {
+                        this.product = res.data.data;
+                        $('#productModal').modal('show');
+                    }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }
     })
 </script>
 
@@ -103,6 +111,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
 
-<script src="./js/payment_info.js"></script>
+<script src="js/paymentInfo.js"></script>
+<script src="js/productModal.js"></script>
 </body>
 </html>
