@@ -36,7 +36,7 @@
             查看更多
           </button>
           <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
-                  :disabled="status.loadingItem === item.id" @click="addToCart(item)">
+                  :disabled="status.loadingItem === item.id" v-on:click="addToCart(item)">
             <i v-if="status.loadingItem === item.id" class="spinner-grow spinner-grow-sm"></i>
             加到購物車
           </button>
@@ -45,8 +45,9 @@
     </div>
   </div>
 
+  <div>{{cart}}</div>
   <payment-info></payment-info>
-  <product-modal :product="product"></product-modal>
+  <product-modal :product="product" v-on:add-to-cart="addToCart"></product-modal>
 </div>
 <script type="module">
     Vue.component('loading', VueLoading);
@@ -66,7 +67,8 @@
             uuid: 'de4aaa47-9e6a-44fb-be33-178ff34efbdc',
             isLoading: true,
             products: [],
-            product: {}
+            product: {},
+            cart: []
         },
         created() {
             axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/products`)
@@ -82,13 +84,20 @@
         },
         methods: {
             getProductDetail(productId) {
+                this.isLoading = true;
                 axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/product/${productId}`)
                     .then(res => {
+                        this.isLoading = false;
                         this.product = res.data.data;
                         $('#productModal').modal('show');
                     }).catch(err => {
                     console.log(err);
                 })
+            },
+            addToCart(product, quantity) {
+                let cloneProduct = JSON.parse(JSON.stringify(product));
+                cloneProduct.num = quantity;
+                this.cart.push(cloneProduct);
             }
         }
     })

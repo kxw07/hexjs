@@ -31,7 +31,7 @@ Vue.component('product-modal', {
             <option value="0" disabled selected>
               請選擇數量
             </option>
-            <option v-for="num in 10" :key="num" :value="num">
+            <option v-for="num in 5" :key="num" :value="num">
               選購 {{ num }} {{ product.unit }}
             </option>
           </select>
@@ -41,7 +41,7 @@ Vue.component('product-modal', {
             小計
             <strong>{{ product.num * product.price }}</strong> 元
           </div>
-          <button type="button" class="btn btn-primary" @click="addToCart(product, product.num)">
+          <button type="button" class="btn btn-primary" v-on:click="addToCart(product, product.num)">
             <i v-if="product.id === status.loadingItem" class="fas fa-spinner fa-spin"></i>
             加到購物車
           </button>
@@ -63,5 +63,10 @@ Vue.component('product-modal', {
             return `backgroundImage: url(${this.product.imageUrl})`;
         }
     },
-    methods: {}
+    methods: {
+        addToCart(product, quantity) {
+            this.$emit('add-to-cart', product, quantity);
+            $('#productModal').modal('hide');
+        }
+    }
 })
