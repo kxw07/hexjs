@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div>{{cart}}</div>
+  <cart :shopping-list="shoppingList"></cart>
   <payment-info></payment-info>
   <product-modal :product="product" v-on:add-to-cart="addToCart"></product-modal>
 </div>
@@ -70,7 +70,7 @@
             isLoading: true,
             products: [],
             product: {},
-            cart: []
+            shoppingList: []
         },
         created() {
             axios.get(`https://course-ec-api.hexschool.io/api/${this.uuid}/ec/products`)
@@ -99,7 +99,10 @@
             },
             addToCart(product, quantity = 1) {
                 product['num'] = quantity;
-                this.cart.push(JSON.parse(JSON.stringify(product)));
+                this.shoppingList.push(JSON.parse(JSON.stringify(product)));
+            },
+            deleteItem(itemIndex) {
+                this.shoppingList.splice(itemIndex, 1);
             }
         }
     })
@@ -123,5 +126,6 @@
 
 <script src="js/paymentInfo.js"></script>
 <script src="js/productModal.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>
