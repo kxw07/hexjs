@@ -50,6 +50,8 @@
   <product-modal :product="product" v-on:add-to-cart="addToCart"></product-modal>
 </div>
 <script type="module">
+    import zh_TW from './locale/zh_TW.js';
+
     Vue.component('loading', VueLoading);
     Vue.component('validation-observer', VeeValidate.ValidationObserver);
     Vue.component('validation-provider', VeeValidate.ValidationProvider);
@@ -60,6 +62,8 @@
             invalid: 'is-invalid',
         }
     });
+
+    VeeValidate.localize('tw', zh_TW);
 
     new Vue({
         el: '#app',

@@ -4,8 +4,8 @@ Vue.component('payment-info', {
       <form v-on:submit.prevent="createOrder">
         <div class="form-group">
           <validation-provider rules="required" v-slot="{ errors, classes, passed }">
-            <label for="username">Name</label>
-            <input id="username" type="text" name="Name" v-model="username" class="form-control" :class="classes">
+            <label for="username">姓名</label>
+            <input id="username" type="text" name="姓名" v-model="username" class="form-control" :class="classes">
             <span class="invalid-feedback">{{ errors[0] }}</span>
             <span v-if="passed">檢查通過</span>
           </validation-provider>
@@ -22,8 +22,8 @@ Vue.component('payment-info', {
 
         <div class="form-group">
           <validation-provider rules="numeric|min:9|required" v-slot="{errors, classes, passed}">
-            <label for="tel">Tel</label>
-            <input id="tel" type="tel" name="Tel" v-model="tel" class="form-control" :class="classes">
+            <label for="tel">聯絡電話</label>
+            <input id="tel" type="tel" name="聯絡電話" v-model="tel" class="form-control" :class="classes">
             <span class="invalid-feedback">{{ errors[0] }}</span>
             <span v-if="passed">檢查通過</span>
           </validation-provider>
@@ -31,8 +31,8 @@ Vue.component('payment-info', {
 
         <div class="form-group">
           <validation-provider rules="required" v-slot="{errors, classes, passed}">
-            <label for="address">Address</label>
-            <input id="address" type="text" name="Address" v-model="address" class="form-control" :class="classes">
+            <label for="address">寄件地址</label>
+            <input id="address" type="text" name="寄件地址" v-model="address" class="form-control" :class="classes">
             <span class="invalid-feedback">{{ errors[0] }}</span>
             <span v-if="passed">檢查通過</span>
           </validation-provider>
@@ -40,8 +40,8 @@ Vue.component('payment-info', {
 
         <div class="form-group">
           <validation-provider rules="required" v-slot="{errors, classes, passed}">
-            <label for="payMethod">Payment Method</label>
-            <select id="payMethod" name="Payment Method" v-model="payMethod" class="form-control" :class="classes">
+            <label for="payMethod">付款方式</label>
+            <select id="payMethod" name="付款方式" v-model="payMethod" class="form-control" :class="classes">
               <option disabled value="">Please select one</option>
               <option>WebATM</option>
               <option>ATM</option>
@@ -57,8 +57,8 @@ Vue.component('payment-info', {
 
         <div class="form-group">
           <validation-provider>
-            <label for="message">Message</label>
-            <textarea id="message" name="Message" v-model="message" cols="30" row="3" class="form-control">
+            <label for="message">備註</label>
+            <textarea id="message" name="備註" v-model="message" cols="30" row="3" class="form-control">
             </textarea>
           </validation-provider>
         </div>
