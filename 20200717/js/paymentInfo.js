@@ -42,7 +42,7 @@ Vue.component('payment-info', {
           <validation-provider rules="required" v-slot="{errors, classes, passed}">
             <label for="payMethod">付款方式</label>
             <select id="payMethod" name="付款方式" v-model="payMethod" class="form-control" :class="classes">
-              <option disabled value="">Please select one</option>
+              <option disabled value="">請選擇付款方式</option>
               <option>WebATM</option>
               <option>ATM</option>
               <option>Barcode</option>

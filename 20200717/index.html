@@ -11,7 +11,7 @@
 <div id="app" class="container">
   <loading :active.sync="isLoading"></loading>
   <div class="row mt-4">
-    <div v-for="(item, index) in products" :key="item.id" class="col-md-4 mb-4">
+    <div v-for="item in products" :key="item.id" class="col-md-4 mb-4">
       <div class="card border-0 shadow-sm">
         <div style="height: 150px; background-size: cover; background-position: center"
              :style="{backgroundImage: `url(${item.imageUrl})`}"></div>
@@ -35,9 +35,7 @@
           <button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="getProductDetail(item.id)">
             查看更多
           </button>
-          <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
-                  :disabled="status.loadingItem === item.id" v-on:click="addToCart(item)">
-            <i v-if="status.loadingItem === item.id" class="spinner-grow spinner-grow-sm"></i>
+          <button type="button" class="btn btn-outline-danger btn-sm ml-auto" v-on:click="addToCart(item)">
             加到購物車
           </button>
         </div>
@@ -93,15 +91,15 @@
                     .then(res => {
                         this.isLoading = false;
                         this.product = res.data.data;
+                        this.product['num'] = 0;
                         $('#productModal').modal('show');
                     }).catch(err => {
                     console.log(err);
                 })
             },
-            addToCart(product, quantity) {
-                let cloneProduct = JSON.parse(JSON.stringify(product));
-                cloneProduct.num = quantity;
-                this.cart.push(cloneProduct);
+            addToCart(product, quantity = 1) {
+                product['num'] = quantity;
+                this.cart.push(JSON.parse(JSON.stringify(product)));
             }
         }
     })

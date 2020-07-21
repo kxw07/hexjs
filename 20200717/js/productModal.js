@@ -27,6 +27,7 @@ Vue.component('product-modal', {
               現在只要 {{ product.price }} 元
             </div>
           </div>
+          
           <select v-model="product.num" name class="form-control mt-3">
             <option value="0" disabled selected>
               請選擇數量
@@ -41,7 +42,7 @@ Vue.component('product-modal', {
             小計
             <strong>{{ product.num * product.price }}</strong> 元
           </div>
-          <button type="button" class="btn btn-primary" v-on:click="addToCart(product, product.num)">
+          <button type="button" class="btn btn-primary" v-on:click="addToCart(product)">
             <i v-if="product.id === status.loadingItem" class="fas fa-spinner fa-spin"></i>
             加到購物車
           </button>
@@ -65,7 +66,7 @@ Vue.component('product-modal', {
     },
     methods: {
         addToCart(product, quantity) {
-            this.$emit('add-to-cart', product, quantity);
+            this.$emit('add-to-cart', product, product.num);
             $('#productModal').modal('hide');
         }
     }
