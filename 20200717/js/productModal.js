@@ -65,8 +65,8 @@ Vue.component('product-modal', {
         }
     },
     methods: {
-        addToCart(product, quantity) {
-            this.$emit('add-to-cart', product, product.num);
+        addToCart(product) {
+            this.$bus.$emit('addToCart', JSON.parse(JSON.stringify(product)))
             $('#productModal').modal('hide');
         }
     }
