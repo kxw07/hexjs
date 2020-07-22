@@ -9,26 +9,36 @@ Vue.component('shopping-cart', {
       <table class="table">
         <thead>
         <tr>
-          <th scope="col">刪除</th>
-          <th scope="col">#</th>
-          <th scope="col">品名</th>
-          <th scope="col">數量</th>
-          <th scope="col">單位</th>
-          <th scope="col">單價</th>
+          <th>-</th>
+          <th>#</th>
+          <th>品名</th>
+          <th width="150px">數量</th>
+          <th>單位</th>
+          <th>單價</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(product, index) in shoppingList" :key="product.id">
-          <td>
+          <td class="align-middle">
             <button type="button" v-on:click="deleteItem(index)"
                     class="btn btn-outline-danger btn-sm">刪除
             </button>
           </td>
-          <td>{{index}}</td>
-          <td>{{product.title}}</td>
-          <td>{{product.num}}</td>
-          <td>{{product.unit}}</td>
-          <td class="text-right">{{product.price}}</td>
+          <td class="align-middle">{{index + 1}}</td>
+          <td class="align-middle">{{product.title}}</td>
+          <td class="align-middle">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" v-on:click="addItemQuantity(product, 1)">+</button>
+              </div>
+              <input id="inlineFormInputGroupUsername" type="text" class="form-control text-center" :value="product.num">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" v-on:click="addItemQuantity(product, -1)" :disabled="product.num <= 1">-</button>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle">{{product.unit}}</td>
+          <td class="align-middle text-right">{{product.price}}</td>
         </tr>
         </tbody>
         <tfoot>
@@ -160,6 +170,9 @@ Vue.component('shopping-cart', {
         },
         deleteAllItem() {
             this.shoppingList = [];
+        },
+        addItemQuantity(product, quantity) {
+            product.num += quantity;
         },
         createOrder() {
             console.log(this.email, this.username, this.tel, this.address, this.payMethod, this.message);
