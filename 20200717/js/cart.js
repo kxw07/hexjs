@@ -60,7 +60,18 @@ Vue.component('cart', {
     },
     methods: {
         addToCart(product) {
-            this.shoppingList.push(product);
+            let itemNotInShoppingList = true;
+
+            this.shoppingList.forEach((shoppingItem, index) => {
+                if (shoppingItem.title === product.title) {
+                    shoppingItem.num += product.num;
+                    itemNotInShoppingList = false;
+                }
+            })
+
+            if (itemNotInShoppingList) {
+                this.shoppingList.push(product);
+            }
         },
         deleteItem(itemIndex) {
             this.shoppingList.splice(itemIndex, 1);
