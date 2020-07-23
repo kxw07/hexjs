@@ -56,7 +56,7 @@ Vue.component('shopping-cart', {
   </div>
   <div class="my-5 row justify-content-center">
     <validation-observer v-slot="{ invalid }" class="col-md-6">
-      <form v-on:submit.prevent="createOrder">
+      <form v-on:submit.prevent="sendOrder">
         <div class="form-group">
           <validation-provider rules="required" v-slot="{ errors, classes, passed }">
             <label for="username">姓名</label>
@@ -174,8 +174,8 @@ Vue.component('shopping-cart', {
         addItemQuantity(product, quantity) {
             product.num += quantity;
         },
-        createOrder() {
-            console.log(this.email, this.username, this.tel, this.address, this.payMethod, this.message);
+        sendOrder() {
+            $('#confirmModal').modal('show');
         }
     }
 })
