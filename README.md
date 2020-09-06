@@ -8,3 +8,4 @@
 [第五週 20200717 表單驗證](https://kxw07.github.io/hexjs/20200717/)  
 [第六週 20200724 Vue Router](https://kxw07.github.io/hexjs/20200724/)  
 [第七週 20200731 Vue 後台](https://kxw07.github.io/hexjs/20200731/)  
+[第八週 20200807 Vue 前台](https://kxw07.github.io/hexjs/20200807/)  
